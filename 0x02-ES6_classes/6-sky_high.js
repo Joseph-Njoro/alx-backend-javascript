@@ -1,24 +1,31 @@
-// Import Building class from 5-building.js file
+/* eslint no-underscore-dangle: ["error", {"allow": ["_sqft", "_floors"] }] */
+/* global , sqft */
+/* eslint no-undef: "error" */
 import Building from './5-building';
 
 export default class SkyHighBuilding extends Building {
-  // Constructor with two attributes: sqft and floors
   constructor(sqft, floors) {
-    super(sqft); // Call the parent class constructor with sqft
+    super(sqft);
+    this._sqft = sqft;
     this._floors = floors;
   }
 
-  // Getter for sqft
   get sqft() {
     return this._sqft;
   }
 
-  // Getter for floors
+  set sqft(area) {
+    this._sqft = sqft;
+  }
+
   get floors() {
     return this._floors;
   }
 
-  // Override the method from Building class
+  set floors(floor) {
+    this._floors = floor;
+  }
+
   evacuationWarningMessage() {
     return `Evacuate slowly the ${this._floors} floors`;
   }
