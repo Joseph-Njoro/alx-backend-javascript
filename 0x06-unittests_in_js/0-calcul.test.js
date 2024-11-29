@@ -1,42 +1,48 @@
 const assert = require('assert');
-const mocha = require('mocha');
-
 const calculateNumber = require('./0-calcul');
 
-describe('calculateNumber', () => {
-  it('should return sum of integers', () => {
+describe('calculateNumber', function () {
+  it('Should return 4', function () {
     assert.strictEqual(calculateNumber(1, 3), 4);
-    assert.strictEqual(calculateNumber(1, -1), 0);
-    assert.strictEqual(calculateNumber(1, -3), -2);
   });
 
-  it('should round floats', () => {
-    assert.strictEqual(calculateNumber(1, 3.7), 5);
-    assert.strictEqual(calculateNumber(1.2, 3.7), 5);
-    assert.strictEqual(calculateNumber(1.5, 3.7), 6);
-    assert.strictEqual(calculateNumber(0.1, 0), 0);
-    assert.strictEqual(calculateNumber(1.4, -4.5), -3);
+  it('Should return -5', function () {
+    assert.strictEqual(calculateNumber(-3, -2), -5);
   });
 
-  it('should return the rounded number if only one is provided', () => {
-    assert.strictEqual(calculateNumber(2), 2);
-    assert.strictEqual(calculateNumber(2.7), 3);
+  it('Should return 5', function () {
+    assert.strictEqual(calculateNumber(1.4, 3.7), 5);
   });
 
-  it('should cast non-numbers into numbers', () => {
-    assert.strictEqual(calculateNumber(true, '3'), 4);
-    assert.strictEqual(calculateNumber(1, '3.7'), 5);
-    assert.strictEqual(calculateNumber('1.2', 3.7), 5);
+  it('Should return -5', function () {
+    assert.strictEqual(calculateNumber(-1.4, -3.7), -5);
   });
 
-  it('should throw typeerror if either param cannot be coerced to a number', () => {
-    assert.throws(() => calculateNumber('hello'), {
-      name: 'TypeError',
-      message: 'Parameters must be numbers'
-    });
-    assert.throws(() => calculateNumber(1.2, 'dog'), {
-      name: 'TypeError',
-      message: 'Parameters must be numbers'
-    });
+  it('Should return 5', function () {
+    assert.strictEqual(calculateNumber(1.45, 3.79), 5);
+  });
+
+  it('Should return NaN', function () {
+    assert.strictEqual(calculateNumber('a', 'b'), NaN);
+  });
+
+  it('Should return NaN', function () {
+    assert.strictEqual(calculateNumber('goat', 'dog'), NaN);
+  });
+
+  it('Should return NaN', function () {
+    assert.strictEqual(calculateNumber([1, 2, 3], 5), NaN);
+  });
+
+  it('Should return NaN', function () {
+    assert.strictEqual(calculateNumber({ a: 24 }, 5), NaN);
+  });
+
+  it('Should return NaN', function () {
+    assert.strictEqual(calculateNumber(), NaN);
+  });
+
+  it('Should return NaN', function () {
+    assert.strictEqual(calculateNumber(2), NaN);
   });
 });

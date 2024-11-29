@@ -1,110 +1,93 @@
 const assert = require('assert');
-const mocha = require('mocha');
-
 const calculateNumber = require('./1-calcul');
 
-const SUM = 'SUM';
-const SUBTRACT = 'SUBTRACT';
-const DIVIDE = 'DIVIDE';
-const INVALID = 'INVALID';
-
 describe('calculateNumber', () => {
-  describe('type SUM', () => {
-    it('should return sum of integers', () => {
-      assert.strictEqual(calculateNumber('SUM', 1, 3), 4);
-      assert.strictEqual(calculateNumber(SUM, 2, -2), 0);
-      assert.strictEqual(calculateNumber(SUM, 1, -4), -3);
+  describe('SUM', () => {
+    it('Should test positive floating number', () => {
+      assert.strictEqual(calculateNumber('SUM', 1.3, 2.5), 4);
     });
 
-    it('should return sum of rounded floats', () => {
-      assert.strictEqual(calculateNumber(SUM, 1.4, 5), 6);
-      assert.strictEqual(calculateNumber(SUM, 1, 4.5), 6);
-      assert.strictEqual(calculateNumber(SUM, 1.4, 4.5), 6);
-      assert.strictEqual(calculateNumber(SUM, 8, -8.2), 0);
-      assert.strictEqual(calculateNumber(SUM, 7.8, -8), 0);
-      assert.strictEqual(calculateNumber(SUM, 7.8, -8.2), 0);
-      assert.strictEqual(calculateNumber(SUM, 3, -5.2), -2);
-      assert.strictEqual(calculateNumber(SUM, 3.1, -5), -2);
-      assert.strictEqual(calculateNumber(SUM, 3.1, -5.2), -2);
+    it('Should test negative floating number', () => {
+      assert.strictEqual(calculateNumber('SUM', -1.3, -2.5), -3);
     });
 
-    it('should return rounded number if only one is provided', () => {
-      assert.strictEqual(calculateNumber(SUM, 8.7), 9);
-      assert.strictEqual(calculateNumber(SUM, 0.3), 0);
-      assert.strictEqual(calculateNumber(SUM, -8.7), -9);
-    });
-  });
-
-  describe('type SUBTRACT', () => {
-    it('should return difference of integers', () => {
-      assert.strictEqual(calculateNumber(SUBTRACT, 5, 1), 4);
-      assert.strictEqual(calculateNumber(SUBTRACT, 5, 5), 0);
-      assert.strictEqual(calculateNumber(SUBTRACT, 1, 5), -4);
+    it('Should test two decimal point number', () => {
+      assert.strictEqual(calculateNumber('SUM', 1.35, 5.66), 7);
     });
 
-    it('should return difference of rounded floats', () => {
-      assert.strictEqual(calculateNumber(SUBTRACT, 8.6, 4.1), 5);
-      assert.strictEqual(calculateNumber(SUBTRACT, 8.6, 4), 5);
-      assert.strictEqual(calculateNumber(SUBTRACT, 9, 4.1), 5);
-
-      assert.strictEqual(calculateNumber(SUBTRACT, 10.2, 9.8), 0);
-      assert.strictEqual(calculateNumber(SUBTRACT, 10.2, 10), 0);
-      assert.strictEqual(calculateNumber(SUBTRACT, 10, 9.8), 0);
-
-      assert.strictEqual(calculateNumber(SUBTRACT, 8.2, 9.2), -1);
-      assert.strictEqual(calculateNumber(SUBTRACT, 8.2, 9), -1);
-      assert.strictEqual(calculateNumber(SUBTRACT, 8, 9.2), -1);
+    it('Should test two mixed type', () => {
+      assert.strictEqual(calculateNumber('SUM', '3.5', 5.66), 10);
     });
 
-    it('should return rounded number if only one is provided', () => {
-      assert.strictEqual(calculateNumber(SUBTRACT, 8.7), 9);
-      assert.strictEqual(calculateNumber(SUBTRACT, 0.3), 0);
-      assert.strictEqual(calculateNumber(SUBTRACT, -8.7), -9);
+    it('Should test for string type', () => {
+      assert.strictEqual(calculateNumber('SUM', 'abc', 5.66), NaN);
+    });
+
+    it('Should test for Array type', () => {
+      assert.strictEqual(calculateNumber('SUM', [1, 2, 3], 5.66), NaN);
+    });
+
+    it('Should test for Object type', () => {
+      assert.strictEqual(calculateNumber('SUM', { a: 6 }, 5.66), NaN);
     });
   });
 
-  describe('type DIVIDE', () => {
-    it('should return quotient of integers', () => {
-      assert.strictEqual(calculateNumber(DIVIDE, 9, 4), 2.25);
-      assert.strictEqual(calculateNumber(DIVIDE, -9, 4), -2.25);
-      assert.strictEqual(calculateNumber(DIVIDE, 9, -4), -2.25);
-      assert.strictEqual(calculateNumber(DIVIDE, -9, -4), 2.25);
+  describe('SUBTRACT', () => {
+    it('Should test positive floating number', () => {
+      assert.strictEqual(calculateNumber('SUBTRACT', 1.3, 2.5), -2);
     });
 
-    it('should return quotient of non-zero rounded floats', () => {
-      assert.strictEqual(calculateNumber(DIVIDE, 1.6, 5.2), 0.4);
-      assert.strictEqual(calculateNumber(DIVIDE, 1.6, 5), 0.4);
-      assert.strictEqual(calculateNumber(DIVIDE, 2, 5.2), 0.4);
-      assert.strictEqual(calculateNumber(DIVIDE, -1.6, 5.2), -0.4);
-      assert.strictEqual(calculateNumber(DIVIDE, -1.6, 5), -0.4);
-      assert.strictEqual(calculateNumber(DIVIDE, -2, 5.2), -0.4);
-      assert.strictEqual(calculateNumber(DIVIDE, 1.6, -5.2), -0.4);
-      assert.strictEqual(calculateNumber(DIVIDE, 1.6, -5), -0.4);
-      assert.strictEqual(calculateNumber(DIVIDE, 2, -5.2), -0.4);
-      assert.strictEqual(calculateNumber(DIVIDE, -1.6, -5.2), 0.4);
-      assert.strictEqual(calculateNumber(DIVIDE, -1.6, -5), 0.4);
-      assert.strictEqual(calculateNumber(DIVIDE, -2, -5.2), 0.4);
+    it('Should test negative floating number', () => {
+      assert.strictEqual(calculateNumber('SUBTRACT', -1.3, -2.5), 1);
     });
 
-    it('should return 0 if dividend rounds to 0', () => {
-      assert.strictEqual(calculateNumber(DIVIDE, 0.3, 3.6), 0);
-      assert.strictEqual(calculateNumber(DIVIDE, -0.3, 3.6), 0);
-      assert.strictEqual(calculateNumber(DIVIDE, 0, 3.6), 0);
+    it('Should test two decimal point number', () => {
+      assert.strictEqual(calculateNumber('SUBTRACT', 5.66, 2.56), 3);
     });
 
-    it('should return "ERROR" if divisor rounds to 0', () => {
-      assert.strictEqual(calculateNumber(DIVIDE, 8.4, 0.4), 'ERROR');
-      assert.strictEqual(calculateNumber(DIVIDE, 8.4, -0.4), 'ERROR');
-      assert.strictEqual(calculateNumber(DIVIDE, 8.4, 0), 'ERROR');
+    it('Should test two mixed type', () => {
+      assert.strictEqual(calculateNumber('SUBTRACT', '5.66', 2.0), 4);
+    });
+
+    it('Should test for string type', () => {
+      assert.strictEqual(calculateNumber('SUBTRACT', 'abc', 5.66), NaN);
+    });
+
+    it('Should test for Array type', () => {
+      assert.strictEqual(calculateNumber('SUBTRACT', [1, 2, 3], 5.66), NaN);
+    });
+
+    it('Should test for Object type', () => {
+      assert.strictEqual(calculateNumber('SUBTRACT', { a: 6 }, 5.66), NaN);
     });
   });
 
-  describe('invalid operation type', () => {
-    it('should throw error if type is invalid', () => {
-      assert.throws(() => calculateNumber(INVALID, 5.7, 4.6), {
-        message:
-          'Invalid operation type. Valid types are "SUM", "SUBTRACT", and "DIVIDE".'
-      });
+  describe('DIVIDE', () => {
+    it('Should test positive floating number', () => {
+      assert.strictEqual(
+        calculateNumber('DIVIDE', 1.3, 2.5),
+        0.3333333333333333
+      );
+    });
+
+    it('Should test positive floating number', () => {
+      assert.strictEqual(calculateNumber('DIVIDE', 6.4, 2.4), 3.0);
+    });
+
+    it('Should test negative floating number', () => {
+      assert.strictEqual(calculateNumber('DIVIDE', -6.4, -2.4), 3.0);
+    });
+
+    it('Should test for Zero division', () => {
+      assert.strictEqual(calculateNumber('DIVIDE', 1.3, 0.4), 'Error');
+    });
+
+    it('Should test for string type', () => {
+      assert.strictEqual(calculateNumber('DIVIDE', 10.6, '2.4'), 5.5);
+    });
+
+    it('Should test for string type', () => {
+      assert.strictEqual(calculateNumber('DIVIDE', 10.6, 'abc'), NaN);
     });
   });
 });

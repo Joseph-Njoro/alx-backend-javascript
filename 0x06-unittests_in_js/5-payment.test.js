@@ -1,13 +1,11 @@
-const mocha = require('mocha');
-const { expect } = require('chai');
 const sinon = require('sinon');
-
+const { expect } = require('chai');
 const sendPaymentRequestToApi = require('./5-payment');
 
 describe('sendPaymentRequestToApi', () => {
   let spy;
 
-  beforeEach(() => {
+  beforeEach('Create a spy', () => {
     spy = sinon.spy(console, 'log');
   });
 
@@ -15,15 +13,15 @@ describe('sendPaymentRequestToApi', () => {
     spy.restore();
   });
 
-  it('should log 120 if a = 100 and b = 20', () => {
+  it('Verify that the console is logging the string The total is: 120 and called once', () => {
     sendPaymentRequestToApi(100, 20);
-    expect(spy.calledOnceWithExactly('The total is: 120')).to.be.true;
+    expect(spy.calledWith('The total is: 120')).to.be.true;
     expect(spy.calledOnce).to.be.true;
   });
 
-  it('should log 20 if a = 10 and b = 10', () => {
+  it('Verify that the console is logging the string The total is: 20 and called once', () => {
     sendPaymentRequestToApi(10, 10);
-    expect(spy.calledOnceWithExactly('The total is: 20')).to.be.true;
+    expect(spy.calledWith('The total is: 20')).to.be.true;
     expect(spy.calledOnce).to.be.true;
   });
 });
